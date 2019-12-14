@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azorkane <azorkane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 14:22:23 by azorkane          #+#    #+#             */
-/*   Updated: 2019/12/08 22:34:12 by azorkane         ###   ########.fr       */
+/*   Updated: 2019/12/01 18:52:05 by azorkane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_GET_NEXT_LINE_H
-# define FT_GET_NEXT_LINE_H
+#ifndef FT_GET_NEXT_LINE_BONUS_H
+# define FT_GET_NEXT_LINE_BONUS_H
 # define FD_LIMIT 10240
 # include <stdlib.h>
 # include <unistd.h>

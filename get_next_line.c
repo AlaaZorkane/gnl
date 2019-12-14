@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azorkane <azorkane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 14:22:59 by azorkane          #+#    #+#             */
-/*   Updated: 2019/12/08 23:55:55 by azorkane         ###   ########.fr       */
+/*   Updated: 2019/12/08 23:55:51 by azorkane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 static int		ft_strjoin_special(char **save, char **buffer, char **tmp)
 {
@@ -59,29 +59,29 @@ static char		*ft_substr(char const *save, unsigned int start, size_t len)
 	return (substr);
 }
 
-static int		return_line(char **save, int fd, char **line)
+static int		return_line(char **save, char **line)
 {
 	int		index;
 	char	*tmp;
 
 	index = 0;
-	while (save[fd][index] != '\n' && save[fd][index])
+	while (save[0][index] != '\n' && save[0][index])
 		index++;
-	if (save[fd][index] == '\n')
+	if (save[0][index] == '\n')
 	{
-		*line = ft_substr(save[fd], 0, index);
-		if (save[fd] != NULL)
+		*line = ft_substr(save[0], 0, index);
+		if (save[0] != NULL)
 		{
-			tmp = save[fd];
-			save[fd] = ft_strdup(tmp + index + 1);
+			tmp = save[0];
+			save[0] = ft_strdup(tmp + index + 1);
 			free(tmp);
 		}
 	}
-	else if (save[fd][index] == '\0')
+	else if (save[0][index] == '\0')
 	{
-		*line = ft_strdup(save[fd]);
-		free(save[fd]);
-		save[fd] = NULL;
+		*line = ft_strdup(save[0]);
+		free(save[0]);
+		save[0] = NULL;
 		return (0);
 	}
 	return (1);
@@ -89,7 +89,7 @@ static int		return_line(char **save, int fd, char **line)
 
 int				get_next_line(int fd, char **line)
 {
-	static char	*save[FD_LIMIT + 1];
+	static char	*save[1];
 	char		*buffer;
 	char		*tmp;
 	int			last;
@@ -101,17 +101,17 @@ int				get_next_line(int fd, char **line)
 	while ((last = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
 		buffer[last] = '\0';
-		if (!save[fd])
-			save[fd] = ft_strdup(buffer);
-		else if (ft_strjoin_special(&save[fd], &buffer, &tmp))
+		if (!save[0])
+			save[0] = ft_strdup(buffer);
+		else if (ft_strjoin_special(&save[0], &buffer, &tmp))
 			return (-1);
-		if (ft_strchr(save[fd], '\n'))
+		if (ft_strchr(save[0], '\n'))
 			break ;
 	}
 	free(buffer);
 	if (last < 0)
 		return (-1);
-	else if (!last && (save[fd] == NULL || save[fd][0] == '\0'))
+	else if (!last && (save[0] == NULL || save[0][0] == '\0'))
 		return (!(*line = ft_strdup("")));
-	return (return_line(save, fd, line));
+	return (return_line(save, line));
 }
